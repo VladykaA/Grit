@@ -1,6 +1,5 @@
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
+import java.time.Duration;
+import java.time.LocalDateTime;
 import java.util.Scanner;
 
 public class CountSeconds {
@@ -13,22 +12,13 @@ public class CountSeconds {
         System.out.println("Input second date in format dd/mm/yyyy HH:mm");
         String dateTwo = sc.nextLine();
 
-        SimpleDateFormat sdf  = new SimpleDateFormat("dd/MM/yyyy HH:mm");
-        Date d1 = null;
-        Date d2 = null;
+        LocalDateTime d1 = LocalDateTime.parse(dateOne);
+        LocalDateTime d2 = LocalDateTime.parse(dateTwo);
 
-        try{
-            d1= sdf.parse(dateOne);
-            d2 = sdf.parse(dateTwo);
+        long diff = Duration.between(d1, d2).toMillis();
+        long seconds = diff / 100;
 
-            long diff = Math.abs(d1.getTime()-d2.getTime());
-            long seconds = diff/100;
-
-            System.out.println("Seconds " + seconds);
-
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
+        System.out.println("Seconds " + seconds);
         sc.close();
     }
 }
